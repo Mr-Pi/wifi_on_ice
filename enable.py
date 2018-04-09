@@ -21,6 +21,7 @@ while True:
             os.system("sudo ip l set wlan0 up")
     except NoSuchElementException:
         driver.find_element(By.ID, "connect").submit()
+        continue
     driver.quit()
     os.system("sudo true")  # keep sudo active
     time.sleep(30)
