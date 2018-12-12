@@ -15,9 +15,10 @@ Simple python script to give you unlimited WiFi quota.
 
 ## Usage
 
-1. Simply modify `enable.py` and replace `wlan0` with your WiFi interface
-2. Run `./enable.py`
-3. Finish
+1. Just run `./enable.py -I <your wlan interface(defaults to wlan0)>`
+2. Finish
+
+For more options you can simply run `./enable.py -h`.
 
 
 ## License
