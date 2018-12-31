@@ -10,6 +10,7 @@ from time import sleep
 
 parser = argparse.ArgumentParser(description='Enables unlimited WiFi Data at the Deutsch Bahn ICE WiFi network')
 parser.add_argument('-I', '--interface', type=str, help='defines the wlan interface to use', default='wlan0')
+parser.add_argument('-s', '--sleep', type=int, help='sleep n second(s) beetween each update', default=30)
 parser.add_argument('--firefox-options', type=str, help='additional arguments to parse to firefox', default=['--headless'], nargs=argparse.REMAINDER)
 args = parser.parse_args()
 
@@ -34,4 +35,4 @@ while True:
         continue
     driver.quit()
     os.system('sudo true')  # keep sudo active
-    sleep(30)
+    sleep(args.sleep)
