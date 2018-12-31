@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import time
 import argparse
 import os
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from time import sleep
 
 
 parser = argparse.ArgumentParser(description='Enables unlimited WiFi Data at the Deutsch Bahn ICE WiFi network')
@@ -21,6 +21,7 @@ while True:
     driver = webdriver.Firefox(firefox_options=firefox_options)
     driver.get('http://login.wifionice.de/de/')
     try:
+        sleep(2)
         quota_now = driver.find_element(By.CLASS_NAME, 'progress-bar').get_attribute('aria-valuenow')
         print('Currently {}% of your quota are used.'.format(quota_now))
         if int(quota_now) > 90:
@@ -33,4 +34,4 @@ while True:
         continue
     driver.quit()
     os.system('sudo true')  # keep sudo active
-    time.sleep(30)
+    sleep(30)
