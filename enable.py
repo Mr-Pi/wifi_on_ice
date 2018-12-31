@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import signal
+import sys
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import NoSuchElementException
@@ -18,8 +20,16 @@ firefox_options=Options()
 for option in args.firefox_options:
     firefox_options.add_argument(option)
 
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    driver.quit()
+    print('wifi_on_ice has stopped.')
+    sys.exit(0)
+
+print("wifi on ice started, press Ctrl+C to exit.")
+driver = webdriver.Firefox(firefox_options=firefox_options)
+signal.signal(signal.SIGINT, signal_handler)
 while True:
-    driver = webdriver.Firefox(firefox_options=firefox_options)
     driver.get('http://login.wifionice.de/de/')
     try:
         sleep(2)
@@ -33,6 +43,5 @@ while True:
     except NoSuchElementException:
         driver.find_element(By.ID, 'connect').submit()
         continue
-    driver.quit()
     os.system('sudo true')  # keep sudo active
     sleep(args.sleep)
